@@ -41,6 +41,20 @@ initialconfig();
 
 
 
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers', "*");
+    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+
+    if(req.method==='OPTIONS'){
+        res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE');
+        return res.status(200).json({});
+    }
+    
+  console.log("middleware");
+  next();
+}
+  app.use(allowCrossDomain);
 
 //  app.get('/db',async(req,res)=>{
 //     await rschema.find((err,reminds)=>{
@@ -101,20 +115,6 @@ const response=
 
 
 
-let allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Headers', "*");
-    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
-
-    if(req.method==='OPTIONS'){
-        res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE');
-        return res.status(200).json({});
-    }
-    
-  console.log("middleware");
-  next();
-}
-  app.use(allowCrossDomain);
 
  const  putValueinDB=(sid,rEmail,mailContent,scheduledDate,scheduledTime)=>{
       
