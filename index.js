@@ -56,7 +56,7 @@ let allowCrossDomain = function(req, res, next) {
 }
   app.use(allowCrossDomain);
 
-app.get('/',async(req,res)=>{
+app.get('/get',async(req,res)=>{
          res.send("data"+reminds);
  });
 
