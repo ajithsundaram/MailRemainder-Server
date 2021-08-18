@@ -15,6 +15,10 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
+const cors =require("cors")
+
+app.use(cors());
+
 
 const initialconfig=async()=>{
     let dbResponse=null;
@@ -41,24 +45,11 @@ initialconfig();
 
 
 
-let allowCrossDomain = function(req, res, next) {
-    res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Headers', "*");
-    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
 
-    if(req.method==='OPTIONS'){
-        res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE');
-        return res.status(200).json({});
-    }
-    
-  console.log("middleware");
-  next();
-}
-  app.use(allowCrossDomain);
-
-app.get('/get',async(req,res)=>{
-         res.send("data"+reminds);
- });
+ app.get('/get',async(req,res)=>{
+   
+        res.send("Hello")
+});
 
 
 function schedulecontent(id,rEmail,emailContent,sDate,sTime){
@@ -112,6 +103,20 @@ const response=
 
 
 
+let allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers', "*");
+    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
+
+    if(req.method==='OPTIONS'){
+        res.header('Access-Control-Allow-Methods','GET, POST, PATCH, PUT, DELETE');
+        return res.status(200).json({});
+    }
+    
+  console.log("middleware");
+  next();
+}
+  app.use(allowCrossDomain);
 
  const  putValueinDB=(sid,rEmail,mailContent,scheduledDate,scheduledTime)=>{
       
