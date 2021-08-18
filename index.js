@@ -86,7 +86,12 @@ function schedulecontent(id,rEmail,emailContent,sDate,sTime){
 }
 
 app.post('/scheduleMail',jsonParser, function (req, res) {
-
+//
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers', "*");
+    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token'); 
+    
+ //   
 const rEmail=req.body.rEmail;
 const emailContent=req.body.mailContent;
 const sDate=req.body.scheduledDate;
