@@ -46,12 +46,10 @@ initialconfig();
 
 
 
-//  app.get('/db',async(req,res)=>{
-//     await rschema.find((err,reminds)=>{
-//     //    if (err) { console.error(err);}
-//         res.send("data"+reminds)
-//     });
-// });
+ app.get('/get',async(req,res)=>{
+   
+        res.send("Hello")
+});
 
 
 function schedulecontent(id,rEmail,emailContent,sDate,sTime){
