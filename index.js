@@ -15,9 +15,9 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const cors =require("cors")
+//const cors =require("cors")
 
-app.use(cors());
+//app.use(cors());
 
 
 const initialconfig=async()=>{
