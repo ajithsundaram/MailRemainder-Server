@@ -64,6 +64,7 @@ function schedulecontent(id,rEmail,emailContent,sDate,sTime){
     
     //scheduling code
     console.log(schDate);
+     console.log(new date());
     const job = schedule.scheduleJob(schDate, function(x){
         console.log('Mail sent on '+x);
         console.log('reciever Mail id'+rEmail);
