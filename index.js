@@ -64,7 +64,7 @@ function schedulecontent(id,rEmail,emailContent,sDate,sTime){
     
     //scheduling code
     console.log(schDate);
-     console.log(new date());
+     console.log(new Date());
     const job = schedule.scheduleJob(schDate, function(x){
         console.log('Mail sent on '+x);
         console.log('reciever Mail id'+rEmail);
@@ -119,7 +119,7 @@ let allowCrossDomain = function(req, res, next) {
         return res.status(200).json({});
     }
     
-  console.log("middleware");
+ // console.log("middleware");
   next();
 }
   app.use(allowCrossDomain);
