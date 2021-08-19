@@ -14,14 +14,10 @@ const remSchema=new mongoose.Schema({
        required:true,
        max:255
    },
-   sDate:{
+   sDateTime:{
        type: String,
        required:true
-   },
-   sTime:{
-    type:String,
-    required:true
-}
+   }
 
 });
 

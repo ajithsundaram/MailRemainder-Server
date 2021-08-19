@@ -15,9 +15,12 @@ mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
-const cors =require("cors")
+// const cors =require("cors")
 
-app.use(cors());
+// app.use(cors());
+// //const cors =require("cors")
+
+//app.use(cors());
 
 
 const initialconfig=async()=>{
@@ -52,9 +55,9 @@ initialconfig();
 });
 
 
-function schedulecontent(id,rEmail,emailContent,sDate,sTime){
-    console.log("thampi date"+sDate+sTime);
-    const sdate=new Date(sDate+" "+sTime);
+function schedulecontent(id,rEmail,emailContent,sDateTime){
+    console.log("Date-Time"+sDateTime);
+    const sdate=new Date(sDateTime);
     const Year=sdate.getFullYear();
     const month=sdate.getMonth();
     const Day=sdate.getDate();
@@ -64,6 +67,7 @@ function schedulecontent(id,rEmail,emailContent,sDate,sTime){
     
     //scheduling code
     console.log(schDate);
+     console.log(new Date().getTimezoneOffset());
     const job = schedule.scheduleJob(schDate, function(x){
         console.log('Mail sent on '+x);
         console.log('reciever Mail id'+rEmail);
@@ -86,15 +90,19 @@ function schedulecontent(id,rEmail,emailContent,sDate,sTime){
 }
 
 app.post('/scheduleMail',jsonParser, function (req, res) {
-
+//
+    res.header('Access-Control-Allow-Origin', "*");
+    res.header('Access-Control-Allow-Headers', "*");
+    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token'); 
+    
+ //   
 const rEmail=req.body.rEmail;
 const emailContent=req.body.mailContent;
-const sDate=req.body.scheduledDate;
-const sTime=req.body.scheduledTime;
+const sDateTime=req.body.scheduledDateTime;
 const sid="sch"+idGenerators(5).toLowerCase();
-putValueinDB(sid,rEmail,emailContent,sDate,sTime);
+putValueinDB(sid,rEmail,emailContent,sDateTime);
 
-schedulecontent(sid,rEmail,emailContent,sDate,sTime);
+schedulecontent(sid,rEmail,emailContent,sDateTime);
 const response=
         {"Status":"success","message":"Mail scheduled successfully"};
     
@@ -113,19 +121,19 @@ let allowCrossDomain = function(req, res, next) {
         return res.status(200).json({});
     }
     
-  console.log("middleware");
+ // console.log("middleware");
   next();
 }
   app.use(allowCrossDomain);
 
- const  putValueinDB=(sid,rEmail,mailContent,scheduledDate,scheduledTime)=>{
+ const  putValueinDB=(sid,rEmail,mailContent,scheduledDateTime)=>{
       
     const recordschema =new rschema({
         sId:sid,
         rEmail:rEmail,
         mailContent:mailContent,
-        sDate:scheduledDate,
-        sTime:scheduledTime
+        sDateTime:scheduledDateTime,
+        
     });
     try{
 const savedrec=  recordschema.save();
@@ -138,7 +146,7 @@ console.log(err);
   }
 
 
-app.listen(3000,()=>{
+app.listen(8080,"0.0.0.0",()=>{
     console.log('Server Started');
 })
 
